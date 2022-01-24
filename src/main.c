@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 /*
   Function Declarations for builtin shell commands:
@@ -23,6 +24,8 @@
 int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_exit(char **args);
+int lsh_pwd(char **args);
+int lsh_date(char **args);
 
 /*
   List of builtin commands, followed by their corresponding functions.
@@ -30,13 +33,17 @@ int lsh_exit(char **args);
 char *builtin_str[] = {
   "cd",
   "help",
-  "exit"
+  "exit",
+  "pwd",
+  "date"
 };
 
 int (*builtin_func[]) (char **) = {
   &lsh_cd,
   &lsh_help,
-  &lsh_exit
+  &lsh_exit,
+  &lsh_pwd,
+  &lsh_date
 };
 
 int lsh_num_builtins() {
@@ -93,6 +100,23 @@ int lsh_exit(char **args)
 {
   return 0;
 }
+
+
+int lsh_pwd(char **args)
+{
+  char wd[1000];
+  printf("ovo je path: %s \n",getcwd(wd,sizeof(wd)));
+}
+
+
+int lsh_date(char **args)
+{
+  time_t tm;
+  time(&tm);
+  printf("Danasnji datum je: %s \n",ctime(&tm));
+  return 0;
+}
+
 
 /**
   @brief Launch a program and wait for it to terminate.

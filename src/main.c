@@ -114,7 +114,6 @@ int lsh_date(char **args)
   time_t tm;
   time(&tm);
   printf("Danasnji datum je: %s \n",ctime(&tm));
-  return 0;
 }
 
 
